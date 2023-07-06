@@ -1,0 +1,6 @@
+framework module Pods_Crypto_Tracker {
+  umbrella header "Pods-Crypto Tracker-umbrella.h"
+
+  export *
+  module * { export * }
+}
