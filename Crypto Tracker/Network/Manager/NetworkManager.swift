@@ -18,7 +18,7 @@ enum NetworkResponse:String {
     case unableToDecode = "We could not decode the response."
 }
 
-enum Result<String>{
+enum Result<String> {
     case success
     case failure(String)
 }
@@ -27,7 +27,7 @@ struct NetworkManager<Endpoint: EndPointType> {
     
     let router = Router<Endpoint>()
     
-    func request<T: Decodable>(endpoint: Endpoint, completion: @escaping (_ object: T?, _ error: String?)->()) {
+    func request<T: Decodable>(endpoint: Endpoint, completion: @escaping (_ object: T?, _ error: String?) -> ()) {
         router.request(endpoint) { data, response, error in
             
             if error != nil {
@@ -39,7 +39,7 @@ struct NetworkManager<Endpoint: EndPointType> {
                 switch result {
                 case .success:
                     guard let responseData = data else {
-                        completion(nil,NetworkResponse.noData.rawValue)
+                        completion(nil, NetworkResponse.noData.rawValue)
                         return
                     }
                     do {
@@ -56,7 +56,7 @@ struct NetworkManager<Endpoint: EndPointType> {
         }
     }
     
-    fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
+    fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         switch response.statusCode {
         case 200...299: return .success
         case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)

@@ -5,7 +5,7 @@
 //  Created by Nihad Allahveranov on 06.07.23.
 //
 
-import Foundation
+import Alamofire
 
 public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?)->()
 
@@ -16,16 +16,16 @@ protocol NetworkRouter: AnyObject {
 }
 
 class Router<EndPoint: EndPointType>: NetworkRouter {
-    private var task: URLSessionTask?
+    private var task: DataRequest?
     
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
-        let session = URLSession.shared
         do {
             let request = try self.buildRequest(from: route)
             NetworkLogger.log(request: request)
-            task = session.dataTask(with: request, completionHandler: { data, response, error in
-                completion(data, response, error)
-            })
+            
+            task = AF.request(request).response { response in
+                completion(response.data, response.response, response.error)
+            }
         } catch {
             completion(nil, nil, error)
         }
@@ -38,9 +38,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
     
     fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
         
-        var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
-                                 cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                                 timeoutInterval: 10.0)
+        var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path))
 
         request.httpMethod = route.httpMethod.rawValue
         do {

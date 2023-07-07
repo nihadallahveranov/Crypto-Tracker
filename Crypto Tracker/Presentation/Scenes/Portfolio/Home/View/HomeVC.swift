@@ -9,7 +9,9 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    private lazy var tokenAmountLbl: UILabel = {
+    private let viewModel = HomeViewModel()
+    
+    private lazy var amountLbl: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "$14,634.06"
@@ -18,7 +20,7 @@ class HomeVC: UIViewController {
         return lbl
     }()
     
-    private lazy var changedTokenAmountLbl: UILabel = {
+    private lazy var exchangedAmountLbl: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "+ $248.23 (+0.35)"
@@ -33,8 +35,8 @@ class HomeVC: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 7
-        stack.addArrangedSubview(tokenAmountLbl)
-        stack.addArrangedSubview(changedTokenAmountLbl)
+        stack.addArrangedSubview(amountLbl)
+        stack.addArrangedSubview(exchangedAmountLbl)
         self.view.addSubview(stack)
         
         return stack
@@ -71,9 +73,10 @@ class HomeVC: UIViewController {
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.separatorStyle = .none
         table.delegate = self
         table.dataSource = self
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        table.register(CryptoTableViewCell.self, forCellReuseIdentifier: "CryptoTableViewCell")
         self.view.addSubview(table)
         
         return table
@@ -81,8 +84,12 @@ class HomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
+                
+        viewModel.getCurrencyRates { [weak self] in
+            guard let self = self else { return }
+            self.setupViews()
+            self.tableView.reloadData()
+        }
     }
     
     private func setupViews() {
@@ -114,15 +121,41 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        if let _ = viewModel.currencyRates { return viewModel.currencies.count }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        content.text = "indexPath.row - \(indexPath.row)"
-        cell.contentConfiguration = content
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoTableViewCell", for: indexPath) as? CryptoTableViewCell else { return UITableViewCell() }
+        var amount = String()
+        switch indexPath.row {
+        case 0:
+            if let usd = viewModel.currencyRates?.bitcoin.usd {
+                amount = "\(usd)"
+            }
+        case 1:
+            if let usd = viewModel.currencyRates?.ethereum.usd {
+                amount = "\(usd)"
+            }
+        case 2:
+            if let usd = viewModel.currencyRates?.ripple.usd {
+                amount = "\(usd)"
+            }
+        default:
+            return UITableViewCell()
+        }
+        cell.configure(cryptoTitle: viewModel.currencies[indexPath.row],
+                       cryptoSubTitle: viewModel.currencyValues[indexPath.row],
+                       cryptoAmount: amount,
+                       cryptoExchangeAmount: viewModel.currencyExchanges[indexPath.row],
+                       cryptoImgName: viewModel.currencies[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
     }
     
     
