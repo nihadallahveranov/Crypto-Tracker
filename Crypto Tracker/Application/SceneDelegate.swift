@@ -20,8 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController()
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .dark
+        }
         
+        let navigationController = UINavigationController()
         window?.rootViewController = navigationController
         appCoordinator = AppCoordinator(navigationController: navigationController)
         appCoordinator?.start()

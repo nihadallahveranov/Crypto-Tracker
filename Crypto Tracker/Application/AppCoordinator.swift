@@ -18,8 +18,7 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         let vc = HomeVC()
-        vc.overrideUserInterfaceStyle = .dark
-        navigationController.navigationBar.isHidden = true
+        navigationController.navigationBar.isHidden = false
         navigationController.pushViewController(vc, animated: false)
     }
 
