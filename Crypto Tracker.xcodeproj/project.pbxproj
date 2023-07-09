@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B1EB4FF2A598F4200279F0D /* SetMinMaxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB4FE2A598F4200279F0D /* SetMinMaxVC.swift */; };
+		3B1EB5012A59928100279F0D /* SetMinMaxVC+setupBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5002A59928100279F0D /* SetMinMaxVC+setupBackButton.swift */; };
+		3B1EB5032A59C73E00279F0D /* NumericTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5022A59C73E00279F0D /* NumericTextInputView.swift */; };
+		3B1EB5052A59EC2300279F0D /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */; };
+		3B1EB5072A59ECF900279F0D /* CoinEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5062A59ECF900279F0D /* CoinEntity.swift */; };
+		3B1EB5092A59F40100279F0D /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5082A59F40100279F0D /* HistoryEntity.swift */; };
 		3B5370A32A5807070013E8F4 /* KerningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A22A5807070013E8F4 /* KerningButton.swift */; };
 		3B5370A52A581D760013E8F4 /* CryptoEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A42A581D760013E8F4 /* CryptoEndpoint.swift */; };
 		3B5370A72A581E0D0013E8F4 /* CryptoRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A62A581E0D0013E8F4 /* CryptoRepo.swift */; };
@@ -61,6 +67,12 @@
 		078CC6B71A20E6FA5B0066BC /* Pods_Crypto_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crypto_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D52BCBCDE62AA9E681605B /* Pods_Crypto_Tracker_Crypto_TrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crypto_Tracker_Crypto_TrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B1A8EED8A29C6D04AF4920C /* Pods-Crypto TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crypto TrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-Crypto TrackerTests/Pods-Crypto TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3B1EB4FE2A598F4200279F0D /* SetMinMaxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMinMaxVC.swift; sourceTree = "<group>"; };
+		3B1EB5002A59928100279F0D /* SetMinMaxVC+setupBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetMinMaxVC+setupBackButton.swift"; sourceTree = "<group>"; };
+		3B1EB5022A59C73E00279F0D /* NumericTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextInputView.swift; sourceTree = "<group>"; };
+		3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		3B1EB5062A59ECF900279F0D /* CoinEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinEntity.swift; sourceTree = "<group>"; };
+		3B1EB5082A59F40100279F0D /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		3B5370A22A5807070013E8F4 /* KerningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KerningButton.swift; sourceTree = "<group>"; };
 		3B5370A42A581D760013E8F4 /* CryptoEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoEndpoint.swift; sourceTree = "<group>"; };
 		3B5370A62A581E0D0013E8F4 /* CryptoRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoRepo.swift; sourceTree = "<group>"; };
@@ -127,12 +139,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B5370A12A5805D50013E8F4 /* Portfolio */ = {
+		3B5370A12A5805D50013E8F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				3B7288122A571AE50040B25F /* Home */,
 			);
-			path = Portfolio;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		3B5370AC2A586DD10013E8F4 /* Cells */ = {
@@ -266,18 +278,18 @@
 		3B7288102A571A450040B25F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				3B7288112A571A5D0040B25F /* Scenes */,
+				3B7288112A571A5D0040B25F /* Portfolio */,
 				3B7288162A571B030040B25F /* Utils */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		3B7288112A571A5D0040B25F /* Scenes */ = {
+		3B7288112A571A5D0040B25F /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				3B5370A12A5805D50013E8F4 /* Portfolio */,
+				3B5370A12A5805D50013E8F4 /* Scenes */,
 			);
-			path = Scenes;
+			path = Portfolio;
 			sourceTree = "<group>";
 		};
 		3B7288122A571AE50040B25F /* Home */ = {
@@ -295,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				3B72881D2A571B6E0040B25F /* HomeVC.swift */,
+				3B1EB4FE2A598F4200279F0D /* SetMinMaxVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -311,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				3B7288272A57207F0040B25F /* HomeVC+SetupNavigation.swift */,
+				3B1EB5002A59928100279F0D /* SetMinMaxVC+setupBackButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -346,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				3B5370A22A5807070013E8F4 /* KerningButton.swift */,
+				3B1EB5022A59C73E00279F0D /* NumericTextInputView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -372,6 +387,8 @@
 			isa = PBXGroup;
 			children = (
 				3B5370A82A583D950013E8F4 /* CryptoEntity.swift */,
+				3B1EB5062A59ECF900279F0D /* CoinEntity.swift */,
+				3B1EB5082A59F40100279F0D /* HistoryEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -387,6 +404,7 @@
 		3B7288242A571C450040B25F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -664,20 +682,26 @@
 				3B5370A52A581D760013E8F4 /* CryptoEndpoint.swift in Sources */,
 				3B7288092A5711D70040B25F /* URLParameterEncoder.swift in Sources */,
 				3B7287F62A5707C30040B25F /* AppCoordinator.swift in Sources */,
+				3B1EB5092A59F40100279F0D /* HistoryEntity.swift in Sources */,
 				3B7288072A5711C40040B25F /* Router.swift in Sources */,
 				3B72881E2A571B6E0040B25F /* HomeVC.swift in Sources */,
+				3B1EB4FF2A598F4200279F0D /* SetMinMaxVC.swift in Sources */,
 				3B7288052A5711B20040B25F /* HTTPTask.swift in Sources */,
+				3B1EB5072A59ECF900279F0D /* CoinEntity.swift in Sources */,
 				3B7288202A571B980040B25F /* Coordinator.swift in Sources */,
 				3B5370A32A5807070013E8F4 /* KerningButton.swift in Sources */,
 				3B72882A2A57232E0040B25F /* UIColor+Extension.swift in Sources */,
 				3B5370A72A581E0D0013E8F4 /* CryptoRepo.swift in Sources */,
 				3B7288012A57118B0040B25F /* HTTPMethod.swift in Sources */,
+				3B1EB5052A59EC2300279F0D /* UserDefaults+Extensions.swift in Sources */,
 				3B72880D2A5711F00040B25F /* ParameterEncoding.swift in Sources */,
 				3B7287FF2A57116A0040B25F /* EndPointType.swift in Sources */,
 				3B72880B2A5711E30040B25F /* JSONParameterEncoder.swift in Sources */,
 				3B7287FD2A5710F10040B25F /* NetworkManager.swift in Sources */,
 				3B5370AB2A58488B0013E8F4 /* HomeViewModel.swift in Sources */,
 				3B7287C42A5704130040B25F /* AppDelegate.swift in Sources */,
+				3B1EB5032A59C73E00279F0D /* NumericTextInputView.swift in Sources */,
+				3B1EB5012A59928100279F0D /* SetMinMaxVC+setupBackButton.swift in Sources */,
 				3B7287C62A5704130040B25F /* SceneDelegate.swift in Sources */,
 				3B7288282A57207F0040B25F /* HomeVC+SetupNavigation.swift in Sources */,
 				3B5370A92A583D950013E8F4 /* CryptoEntity.swift in Sources */,

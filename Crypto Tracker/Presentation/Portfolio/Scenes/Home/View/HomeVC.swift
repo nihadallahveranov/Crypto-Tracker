@@ -93,6 +93,7 @@ class HomeVC: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .systemBackground
         self.setupNavigationController()
         
         NSLayoutConstraint.activate([
@@ -153,10 +154,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = SetMinMaxVC()
+        vc.view.backgroundColor = .systemBackground
+        let coin = viewModel.currencies[indexPath.row]
+        vc.selectedCoinName = coin
+        vc.title = coin
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-    
-    
 }

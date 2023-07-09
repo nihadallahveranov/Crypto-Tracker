@@ -34,14 +34,13 @@ class CryptoTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    private lazy var mainStackView: UIStackView = {
+    private lazy var titleStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 6
         stack.addArrangedSubview(titleLbl)
         stack.addArrangedSubview(subTitleLbl)
-        self.contentView.addSubview(stack)
         
         return stack
     }()
@@ -72,6 +71,17 @@ class CryptoTableViewCell: UITableViewCell {
         stack.spacing = 6
         stack.addArrangedSubview(amountLbl)
         stack.addArrangedSubview(exchangedAmountLbl)
+        
+        return stack
+    }()
+    
+    private lazy var primaryStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.addArrangedSubview(titleStackView)
+        stack.addArrangedSubview(amountStackView)
         self.contentView.addSubview(stack)
         
         return stack
@@ -112,20 +122,17 @@ class CryptoTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        self.selectionStyle = .none
-        
         NSLayoutConstraint.activate([
             cryptoImage.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             cryptoImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 24),
             cryptoImage.heightAnchor.constraint(equalToConstant: 25),
             cryptoImage.widthAnchor.constraint(equalToConstant: 25),
             
-            mainStackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: cryptoImage.trailingAnchor, constant: 8),
-
-            amountStackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            amountStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -24),
-            amountStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
+            primaryStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            primaryStackView.leadingAnchor.constraint(equalTo: cryptoImage.trailingAnchor, constant: 16),
+            primaryStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -24),
+//            primaryStackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            primaryStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
         ])
     }
 

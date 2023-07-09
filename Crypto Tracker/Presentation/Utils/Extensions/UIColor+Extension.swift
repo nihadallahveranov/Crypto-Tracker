@@ -12,4 +12,5 @@ import UIKit
 extension UIColor {
     static var primaryGreen = UIColor(named: "primaryGreen")
     static var primaryDark = UIColor(named: "primaryDark")
+    static var primaryBlue = UIColor(named: "primaryBlue")
 }
