@@ -13,6 +13,7 @@
 		3B1EB5052A59EC2300279F0D /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */; };
 		3B1EB5072A59ECF900279F0D /* CoinEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5062A59ECF900279F0D /* CoinEntity.swift */; };
 		3B1EB5092A59F40100279F0D /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EB5082A59F40100279F0D /* HistoryEntity.swift */; };
+		3B2A89932A5A9DF30069EAD5 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A89922A5A9DF30069EAD5 /* BackgroundTaskManager.swift */; };
 		3B5370A32A5807070013E8F4 /* KerningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A22A5807070013E8F4 /* KerningButton.swift */; };
 		3B5370A52A581D760013E8F4 /* CryptoEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A42A581D760013E8F4 /* CryptoEndpoint.swift */; };
 		3B5370A72A581E0D0013E8F4 /* CryptoRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5370A62A581E0D0013E8F4 /* CryptoRepo.swift */; };
@@ -40,6 +41,7 @@
 		3B7288202A571B980040B25F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B72881F2A571B980040B25F /* Coordinator.swift */; };
 		3B7288282A57207F0040B25F /* HomeVC+SetupNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7288272A57207F0040B25F /* HomeVC+SetupNavigation.swift */; };
 		3B72882A2A57232E0040B25F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7288292A57232E0040B25F /* UIColor+Extension.swift */; };
+		3BC235252A5C5D9C003E873E /* ForegroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC235242A5C5D9C003E873E /* ForegroundTaskManager.swift */; };
 		8537C9AD56219052350CC074 /* Pods_Crypto_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 078CC6B71A20E6FA5B0066BC /* Pods_Crypto_TrackerTests.framework */; };
 		85E3103E7F7303DCA2E9BFE8 /* Pods_Crypto_Tracker_Crypto_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D52BCBCDE62AA9E681605B /* Pods_Crypto_Tracker_Crypto_TrackerUITests.framework */; };
 		9C5E03A143498406048779EA /* Pods_Crypto_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D2F83C69D397D3A5E5B52A1 /* Pods_Crypto_Tracker.framework */; };
@@ -73,6 +75,7 @@
 		3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		3B1EB5062A59ECF900279F0D /* CoinEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinEntity.swift; sourceTree = "<group>"; };
 		3B1EB5082A59F40100279F0D /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
+		3B2A89922A5A9DF30069EAD5 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		3B5370A22A5807070013E8F4 /* KerningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KerningButton.swift; sourceTree = "<group>"; };
 		3B5370A42A581D760013E8F4 /* CryptoEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoEndpoint.swift; sourceTree = "<group>"; };
 		3B5370A62A581E0D0013E8F4 /* CryptoRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoRepo.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		3B72881F2A571B980040B25F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		3B7288272A57207F0040B25F /* HomeVC+SetupNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+SetupNavigation.swift"; sourceTree = "<group>"; };
 		3B7288292A57232E0040B25F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		3BC235242A5C5D9C003E873E /* ForegroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundTaskManager.swift; sourceTree = "<group>"; };
 		5E52D67642F18262E468C976 /* Pods-Crypto Tracker-Crypto TrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crypto Tracker-Crypto TrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Crypto Tracker-Crypto TrackerUITests/Pods-Crypto Tracker-Crypto TrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A5978F090200FBC87D80C2A /* Pods-Crypto Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crypto Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Crypto Tracker/Pods-Crypto Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		8D2F83C69D397D3A5E5B52A1 /* Pods_Crypto_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crypto_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -405,6 +409,8 @@
 			isa = PBXGroup;
 			children = (
 				3B1EB5042A59EC2300279F0D /* UserDefaults+Extensions.swift */,
+				3B2A89922A5A9DF30069EAD5 /* BackgroundTaskManager.swift */,
+				3BC235242A5C5D9C003E873E /* ForegroundTaskManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -697,12 +703,14 @@
 				3B72880D2A5711F00040B25F /* ParameterEncoding.swift in Sources */,
 				3B7287FF2A57116A0040B25F /* EndPointType.swift in Sources */,
 				3B72880B2A5711E30040B25F /* JSONParameterEncoder.swift in Sources */,
+				3B2A89932A5A9DF30069EAD5 /* BackgroundTaskManager.swift in Sources */,
 				3B7287FD2A5710F10040B25F /* NetworkManager.swift in Sources */,
 				3B5370AB2A58488B0013E8F4 /* HomeViewModel.swift in Sources */,
 				3B7287C42A5704130040B25F /* AppDelegate.swift in Sources */,
 				3B1EB5032A59C73E00279F0D /* NumericTextInputView.swift in Sources */,
 				3B1EB5012A59928100279F0D /* SetMinMaxVC+setupBackButton.swift in Sources */,
 				3B7287C62A5704130040B25F /* SceneDelegate.swift in Sources */,
+				3BC235252A5C5D9C003E873E /* ForegroundTaskManager.swift in Sources */,
 				3B7288282A57207F0040B25F /* HomeVC+SetupNavigation.swift in Sources */,
 				3B5370A92A583D950013E8F4 /* CryptoEntity.swift in Sources */,
 			);
@@ -874,6 +882,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RDRYD9MWH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Crypto Tracker/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -906,6 +915,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RDRYD9MWH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Crypto Tracker/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

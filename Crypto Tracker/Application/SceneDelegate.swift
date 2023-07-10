@@ -6,18 +6,35 @@
 //
 
 import UIKit
+import BackgroundTasks
+import UserNotifications
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
-
+    var timer: Timer?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // background taks identifier
+        let bgTaskIdentifier = "com.Crypto-Tracker.backgroundTask"
+
+        // Register the background task handler
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: bgTaskIdentifier, using: nil) { task in
+            self.handleBackgroundTask(task: task as! BGAppRefreshTask)
+        }
+        
+        // check notification permissions
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Schedule the API call to run every minute in foreground
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(apiCall), userInfo: nil, repeats: true)
         
         window = UIWindow(windowScene: windowScene)
         if #available(iOS 13.0, *) {
@@ -29,6 +46,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator = AppCoordinator(navigationController: navigationController)
         appCoordinator?.start()
         window?.makeKeyAndVisible()
+        
+        // resetting notifications
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -51,6 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        // Invalidate the timer when the app enters the foreground
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -58,7 +84,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    
+    func handleBackgroundTask(task: BGAppRefreshTask) {
+        guard UIApplication.shared.connectedScenes.first is UIWindowScene else {
+            task.setTaskCompleted(success: false)
+            return
+        }
 
+        let backgroundTaskManager = BackgroundTaskManager.shared
+        backgroundTaskManager.handleBackgroundTask(task: task)
 
+        // Set the task completed handler
+        task.expirationHandler = {
+            backgroundTaskManager.scheduleBackgroundTask()
+        }
+
+        // Inform the system that the background task is complete
+        task.setTaskCompleted(success: true)
+    }
+    
+    @objc
+    func apiCall() {
+        // Perform your API call here
+        ForegroundTaskManager.shared.fetchCoinRates { coinRates in
+            DispatchQueue.main.async {
+                ForegroundTaskManager.shared.performForeground()
+            }
+
+        }
+    }
 }
 

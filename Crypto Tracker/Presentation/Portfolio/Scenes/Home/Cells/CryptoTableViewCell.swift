@@ -131,7 +131,6 @@ class CryptoTableViewCell: UITableViewCell {
             primaryStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
             primaryStackView.leadingAnchor.constraint(equalTo: cryptoImage.trailingAnchor, constant: 16),
             primaryStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -24),
-//            primaryStackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             primaryStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
         ])
     }

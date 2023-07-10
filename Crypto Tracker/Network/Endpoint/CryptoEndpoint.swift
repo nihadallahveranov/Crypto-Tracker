@@ -9,8 +9,6 @@ import Foundation
 
 enum CryptoAPI {
     case currencyRates
-    case setMinMaxValue(coin: String, min: Double, max: Double)
-    case coinHistory(coin: String)
 }
 
 extension CryptoAPI: EndPointType {
@@ -25,34 +23,23 @@ extension CryptoAPI: EndPointType {
         switch self {
         case .currencyRates:
             return "/simple/price"
-        case .setMinMaxValue, .coinHistory:
-            return "/your/path/here" // Replace with your specific API endpoint paths
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .currencyRates, .coinHistory:
+        case .currencyRates:
             return .get
-        case .setMinMaxValue:
-            return .post
         }
     }
     
     var task: HTTPTask {
         switch self {
-        case .currencyRates, .coinHistory:
+        case .currencyRates:
             return .requestParameters(bodyParameters: nil,
                                       bodyEncoding: .urlEncoding,
                                       urlParameters: ["ids": "bitcoin,ethereum,ripple",
                                                       "vs_currencies": "usd"])
-        case .setMinMaxValue(let coin, let min, let max):
-            let parameters: Parameters = [
-                "coin": coin,
-                "min": min,
-                "max": max
-            ]
-            return .requestParameters(bodyParameters: parameters, bodyEncoding: .jsonEncoding, urlParameters: nil)
         }
     }
     

@@ -10,6 +10,7 @@ import UIKit
 class HomeVC: UIViewController {
     
     private let viewModel = HomeViewModel()
+    private let refreshControl = UIRefreshControl()
     
     private lazy var amountLbl: UILabel = {
         let lbl = UILabel()
@@ -76,6 +77,8 @@ class HomeVC: UIViewController {
         table.separatorStyle = .none
         table.delegate = self
         table.dataSource = self
+        table.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
         table.register(CryptoTableViewCell.self, forCellReuseIdentifier: "CryptoTableViewCell")
         self.view.addSubview(table)
         
@@ -89,6 +92,15 @@ class HomeVC: UIViewController {
             guard let self = self else { return }
             self.setupViews()
             self.tableView.reloadData()
+        }
+    }
+    
+    @objc
+    private func refreshTableView() {
+        viewModel.getCurrencyRates { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     
@@ -128,6 +140,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoTableViewCell", for: indexPath) as? CryptoTableViewCell else { return UITableViewCell() }
+        
         var amount = String()
         switch indexPath.row {
         case 0:
@@ -145,6 +158,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return UITableViewCell()
         }
+        
         cell.configure(cryptoTitle: viewModel.currencies[indexPath.row],
                        cryptoSubTitle: viewModel.currencyValues[indexPath.row],
                        cryptoAmount: amount,

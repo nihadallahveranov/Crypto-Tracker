@@ -23,6 +23,7 @@ class HomeViewModel {
         repo.getCurrencyRates { response, error in
             self.currencyRates = response
             self.error = error
+            // Switching to the main thread to perform UI-related updates
             DispatchQueue.main.async {
                 callback()
             }

@@ -76,7 +76,6 @@ class SetMinMaxVC: UIViewController {
             present(alertController, animated: true, completion: nil)
             return
         }
-        
         saveMinMaxValues(min: min, max: max)
    }
     
