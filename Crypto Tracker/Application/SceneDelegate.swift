@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         UNUserNotificationCenter.current().delegate = self
         
         // Schedule the API call to run every minute in foreground
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(apiCall), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(apiCall), userInfo: nil, repeats: true)
         
         window = UIWindow(windowScene: windowScene)
         if #available(iOS 13.0, *) {

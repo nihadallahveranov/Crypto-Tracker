@@ -43,9 +43,23 @@ class SetMinMaxVC: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Save", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         button.backgroundColor = .primaryBlue
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        self.view.addSubview(button)
+        
+        return button
+    }()
+    
+    private lazy var pushButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Go to history", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        button.backgroundColor = .primaryDark
+        button.layer.cornerRadius = 25
+        button.addTarget(self, action: #selector(pushButtonTapped), for: .touchUpInside)
         self.view.addSubview(button)
         
         return button
@@ -65,25 +79,38 @@ class SetMinMaxVC: UIViewController {
     }
     
     @objc
-    private func saveButtonTapped(_ sender: UIButton) {
+    private func saveButtonTapped() {
         let minText = minTextInputView.currentText
         let maxText = maxTextField.currentText
         
         guard let min = Double(minText), let max = Double(maxText) else {
-            let alertController = UIAlertController(title: "Invalid Input", message: "Please enter valid minimum and maximum values.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
+            showAlert(title: "Invalid Input", message: "Please enter valid minimum and maximum values.")
             return
         }
+        
         saveMinMaxValues(min: min, max: max)
-   }
+        showAlert(title: "Successfully saved.")
+    }
+    
+    @objc
+    private func pushButtonTapped() {
+        let vc = CoinHistoryVC()
+        vc.selectedCoinName = self.selectedCoinName
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func saveMinMaxValues(min: Double, max: Double) {
         let minCoin: Coin = Coin(name: selectedCoinName, rate: min)
         let maxCoin: Coin = Coin(name: selectedCoinName, rate: max)
         UserDefaults.standard.saveObject(minCoin, key: selectedCoinName + UserDefaultsKeys.MIN_COIN)
         UserDefaults.standard.saveObject(maxCoin, key: selectedCoinName + UserDefaultsKeys.MAX_COIN)
+    }
+    
+    private func showAlert(title: String, message: String? = nil){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setupViews() {
@@ -96,10 +123,14 @@ class SetMinMaxVC: UIViewController {
             inputStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             saveButton.topAnchor.constraint(equalTo: inputStackView.bottomAnchor, constant: 24),
-            saveButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            saveButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            saveButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            saveButton.widthAnchor.constraint(equalToConstant: 187),
             saveButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            pushButton.topAnchor.constraint(equalTo: self.saveButton.bottomAnchor, constant: 12),
+            pushButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            pushButton.widthAnchor.constraint(equalToConstant: 187),
+            pushButton.heightAnchor.constraint(equalToConstant: 48),
         ])
     }
-
 }

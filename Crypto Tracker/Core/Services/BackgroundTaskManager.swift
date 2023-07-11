@@ -12,7 +12,7 @@ import UserNotifications
 // https://developer.apple.com/documentation/backgroundtasks/bgtaskschedulererrorcode/bgtaskschedulererrorcodeunavailable?language=objc
 
 protocol BackgroundTaskDelegate: AnyObject {
-    func didFetchCoinRates(_ coinRates: [Double])
+    func didFetchCoinRatesFromBackground(_ currencyRates: CurrencyRatesResponse?)
 }
 
 class BackgroundTaskManager {
@@ -40,22 +40,28 @@ class BackgroundTaskManager {
 
             for (index, coinRate) in coinRates.enumerated() {
                 // Compare the coin rate with the saved min and max values
-                var minCoinModel: Coin?
-                guard let minCoin = UserDefaults.standard.getObject(class: minCoinModel, key: self.currencies[index] + UserDefaultsKeys.MIN_COIN) else {
-                    return
+                guard let minCoin = UserDefaults.standard.getCoin(key: self.currencies[index] + UserDefaultsKeys.MIN_COIN) else {
+                    continue
                 }
                 
-                var maxCoinModel: Coin?
-                guard let maxCoin = UserDefaults.standard.getObject(class: maxCoinModel, key: self.currencies[index] + UserDefaultsKeys.MAX_COIN) else {
-                    return
+                guard let maxCoin = UserDefaults.standard.getCoin(key: self.currencies[index] + UserDefaultsKeys.MAX_COIN) else {
+                    continue
                 }
+                
+                let currentCoin = Coin(name: self.currencies[index], rate: coinRate)
 
                 if coinRate > maxCoin.rate {
                     // Coin rate exceeds the maximum, trigger a local notification
                     self.triggerNotification(title: "Coin Rate Alert", message: "The rate of \(coinRate) has exceeded the maximum value.")
+                    
+                    // add currentCoin to history
+                    UserDefaults.standard.addHistoryItem(currentCoin)
                 } else if coinRate < minCoin.rate {
                     // Coin rate falls below the minimum, trigger a local notification
                     self.triggerNotification(title: "Coin Rate Alert", message: "The rate of \(coinRate) has fallen below the minimum value.")
+                    
+                    // add currentCoin to history
+                    UserDefaults.standard.addHistoryItem(currentCoin)
                 }
             }
 
@@ -66,19 +72,20 @@ class BackgroundTaskManager {
     
     private func fetchCoinRate(completion: @escaping (_ coinRates: [Double]) -> ()) {
         repo.getCurrencyRates() { response, error in
+            self.delegate?.didFetchCoinRatesFromBackground(response)
+            
             guard let bitcoin = response?.bitcoin.usd,
                     let ethereum = response?.ethereum.usd,
                     let ripple = response?.ripple.usd else
             {
                 return
             }
-            self.delegate?.didFetchCoinRates([bitcoin, ethereum, ripple])
             completion([bitcoin, ethereum, ripple])
         }
     }
     
     private func triggerNotification(title: String, message: String) {
-        let content = UNMutableNotificationContent()
+        let content = UNMutableNotificationContent() // content for background notification
         content.title = title
         content.body = message
         

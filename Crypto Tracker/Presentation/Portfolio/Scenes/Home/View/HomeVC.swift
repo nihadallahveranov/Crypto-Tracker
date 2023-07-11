@@ -87,6 +87,8 @@ class HomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        BackgroundTaskManager.shared.delegate = self
+        ForegroundTaskManager.shared.delegate = self
                 
         viewModel.getCurrencyRates { [weak self] in
             guard let self = self else { return }
@@ -164,6 +166,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                        cryptoAmount: amount,
                        cryptoExchangeAmount: viewModel.currencyExchanges[indexPath.row],
                        cryptoImgName: viewModel.currencies[indexPath.row])
+        
         return cell
     }
     
@@ -175,4 +178,20 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         vc.title = coin
         self.navigationController?.pushViewController(vc, animated: true)
     }
+}
+
+extension HomeVC: BackgroundTaskDelegate, ForegroundTaskDelegate {
+    func didFetchCoinRatesFromForeground(_ currencyRates: CurrencyRatesResponse?) {
+        reloadCurrencyRates(currencyRates)
+    }
+    
+    func didFetchCoinRatesFromBackground(_ currencyRates: CurrencyRatesResponse?) {
+        reloadCurrencyRates(currencyRates)
+    }
+    
+    func reloadCurrencyRates(_ currencyRates: CurrencyRatesResponse?) {
+        viewModel.currencyRates = currencyRates
+        self.tableView.reloadData()
+    }
+    
 }
