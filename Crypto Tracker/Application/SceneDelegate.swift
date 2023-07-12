@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import BackgroundTasks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
@@ -19,14 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        // background taks identifier
-        let bgTaskIdentifier = "com.Crypto-Tracker.backgroundTask"
-
-        // Register the background task handler
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: bgTaskIdentifier, using: nil) { task in
-            self.handleBackgroundTask(task: task as! BGAppRefreshTask)
-        }
         
         // check notification permissions
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
@@ -82,24 +73,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-    
-    func handleBackgroundTask(task: BGAppRefreshTask) {
-        guard UIApplication.shared.connectedScenes.first is UIWindowScene else {
-            task.setTaskCompleted(success: false)
-            return
-        }
-
-        let backgroundTaskManager = BackgroundTaskManager.shared
-        backgroundTaskManager.handleBackgroundTask(task: task)
-
-        // Set the task completed handler
-        task.expirationHandler = {
-            backgroundTaskManager.scheduleBackgroundTask()
-        }
-
-        // Inform the system that the background task is complete
-        task.setTaskCompleted(success: true)
     }
     
     @objc
