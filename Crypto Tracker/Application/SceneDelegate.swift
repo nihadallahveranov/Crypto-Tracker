@@ -7,7 +7,6 @@
 
 import UIKit
 import BackgroundTasks
-import UserNotifications
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
@@ -34,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         UNUserNotificationCenter.current().delegate = self
         
         // Schedule the API call to run every minute in foreground
-        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(apiCall), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(apiCall), userInfo: nil, repeats: true)
         
         window = UIWindow(windowScene: windowScene)
         if #available(iOS 13.0, *) {
@@ -106,7 +105,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     @objc
     func apiCall() {
         // Perform your API call here
-        ForegroundTaskManager.shared.fetchCoinRates { coinRates in
+        ForegroundTaskManager.shared.fetchCoinRates { _ in
             DispatchQueue.main.async {
                 ForegroundTaskManager.shared.performForeground()
             }

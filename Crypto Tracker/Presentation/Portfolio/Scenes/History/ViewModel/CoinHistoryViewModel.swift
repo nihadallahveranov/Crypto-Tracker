@@ -17,14 +17,14 @@ class CoinHistoryViewModel {
             return
         }
         
-        for history in histories {
+        for history in histories.reversed() {
             guard coinName == history.coin.name else { // Add only selected coin name's history
                 return
             }
             let dateFormatter = DateFormatter()
 
             // Set the desired date format
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = "yyyy, d MMM HH:mm:ss"
 
             // Convert the timestamp to a Date object
             let date = Date(timeIntervalSince1970: history.timestamp)
@@ -32,7 +32,7 @@ class CoinHistoryViewModel {
             // Format the date into a string
             let formattedDateString = dateFormatter.string(from: date)
             
-            self.histories.append("\(history.coin.rate) - \(formattedDateString)")
+            self.histories.append("\(history.coin.rate)$ - \(formattedDateString)")
         }
     }
     

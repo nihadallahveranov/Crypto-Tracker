@@ -29,7 +29,6 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         } catch {
             completion(nil, nil, error)
         }
-        self.task?.resume()
     }
     
     func cancel() {

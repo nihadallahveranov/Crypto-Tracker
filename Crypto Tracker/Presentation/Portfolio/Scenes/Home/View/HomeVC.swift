@@ -92,6 +92,10 @@ class HomeVC: UIViewController {
                 
         viewModel.getCurrencyRates { [weak self] in
             guard let self = self else { return }
+            if let error = self.viewModel.error {
+                self.showErrorAlert(error)
+                return
+            }
             self.setupViews()
             self.tableView.reloadData()
         }
@@ -104,6 +108,13 @@ class HomeVC: UIViewController {
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
         }
+    }
+    
+    private func showErrorAlert(_ error: String) {
+        let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     private func setupViews() {
